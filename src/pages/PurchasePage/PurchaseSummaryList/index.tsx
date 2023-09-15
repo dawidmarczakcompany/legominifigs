@@ -1,5 +1,6 @@
 import { MinifigPart } from "types/minifigs";
 import styles from "./index.module.scss";
+import Loader from "components/Loader";
 
 interface PurchaseSummaryListProps {
   minifigParts?: MinifigPart[];
@@ -7,7 +8,7 @@ interface PurchaseSummaryListProps {
 
 const PurchaseSummaryList = ({ minifigParts }: PurchaseSummaryListProps) => {
   if (!minifigParts?.length) {
-    return null;
+    return <Loader />;
   }
 
   return (

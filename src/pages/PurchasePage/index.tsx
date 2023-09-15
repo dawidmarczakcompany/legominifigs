@@ -2,28 +2,53 @@ import { FormProvider, useForm } from "react-hook-form";
 import PurchaseForm from "./PurchaseForm";
 import PurchaseSummary from "./PurchaseSummary";
 import styles from "./index.module.scss";
-import { PurchaseFormType } from "types/purchase";
-import { useNavigate } from "react-router-dom";
-import { PAGE_ROUTE } from "utils/navigation";
+import { Purchase, PurchaseFormType } from "types/purchase";
+import { useNavigate, useParams } from "react-router-dom";
+import { submitPurchase } from "actions/purchase";
+import { v4 as uuidv4 } from "uuid";
+import { useState } from "react";
 
 const PurchasePage = () => {
+  const { id: minifigId } = useParams();
   const navigate = useNavigate();
+  const [isPurchasing, setIsPurchasing] = useState(false);
   const formMethods = useForm<PurchaseFormType>({
-    mode: "onSubmit",
+    mode: "onChange",
   });
 
   const { handleSubmit } = formMethods;
 
-  //In more complex scenario, data should be saved somewhere; Here just moving to success page as the form was filled correctly
-  const onPurchaseSubmit = (data: PurchaseFormType) =>
-    navigate(`/${PAGE_ROUTE.MINIFIG_SUCCESS}`, { replace: true });
+  const onPurchaseSubmit = async (data: PurchaseFormType) => {
+    if (!minifigId) {
+      return;
+    }
+
+    setIsPurchasing(true);
+
+    const purchase: Purchase = {
+      purchaseId: uuidv4(),
+      shippingDetails: data,
+      minifigId,
+    };
+
+    submitPurchase(purchase)
+      .then(() => {
+        navigate(`/`, { replace: true });
+      })
+      .catch(() => {
+        console.log("E");
+      })
+      .finally(() => setIsPurchasing(false));
+  };
+
+  console.log(isPurchasing, "isPUR");
 
   return (
     <FormProvider {...formMethods}>
       <form onSubmit={handleSubmit(onPurchaseSubmit)} className={styles.form}>
         <div className={styles.purchaseWrapper}>
           <PurchaseForm />
-          <PurchaseSummary />
+          <PurchaseSummary isPurchasing={isPurchasing} />
         </div>
       </form>
     </FormProvider>

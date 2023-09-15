@@ -6,7 +6,11 @@ import { PurchaseFormType } from "types/purchase";
 import { useFormContext } from "react-hook-form";
 import Loader from "components/Loader";
 
-const PurchaseSummary = () => {
+interface PurchaseSummaryProps {
+  isPurchasing?: boolean;
+}
+
+const PurchaseSummary = ({ isPurchasing }: PurchaseSummaryProps) => {
   const { minifig, minifigParts } = useMinifigDetails();
   const {
     formState: { isValid },
@@ -40,7 +44,7 @@ const PurchaseSummary = () => {
             )}
 
             <Button
-              // disabled={!isValid}
+              disabled={!isValid || isPurchasing}
               variant="primary"
               className={styles.submitButton}
               type="submit"

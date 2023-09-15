@@ -3,14 +3,20 @@ import styles from "./index.module.scss";
 import FormGroup from "components/FormGroup";
 import { Controller, useFormContext } from "react-hook-form";
 import { PurchaseFormType } from "types/purchase";
-import { fieldRequiredMessage } from "utils/form";
+import {
+  PurchaseFormValidationMessages,
+  validateDateOfBirth,
+  validateEmail,
+  validatePhone,
+} from "utils/form";
 
 const PurchaseForm = () => {
   const {
     control,
     formState: { errors },
   } = useFormContext<PurchaseFormType>();
-  const commonFormRules = { required: fieldRequiredMessage };
+  const commonFormRules = { required: PurchaseFormValidationMessages.REQUIRED };
+  const currentDate = new Date().toISOString().split("T")[0];
 
   return (
     <div className={styles.purchaseFormWrapper}>
@@ -52,14 +58,14 @@ const PurchaseForm = () => {
           name="phoneNumber"
           render={({ field: { onChange } }) => (
             <FormInput
-              label="Phone number"
+              label="Phone number with country code"
               onChange={onChange}
               errorMessage={errors.phoneNumber?.message}
               type="tel"
               placeholder="Enter phone number"
             />
           )}
-          rules={{ ...commonFormRules }}
+          rules={{ ...commonFormRules, validate: validatePhone }}
         />
 
         <Controller
@@ -74,7 +80,7 @@ const PurchaseForm = () => {
               placeholder="Enter e-mail address"
             />
           )}
-          rules={{ ...commonFormRules }}
+          rules={{ ...commonFormRules, validate: validateEmail }}
         />
 
         <Controller
@@ -86,9 +92,10 @@ const PurchaseForm = () => {
               onChange={onChange}
               errorMessage={errors.dateOfBirth?.message}
               type="date"
+              max={currentDate}
             />
           )}
-          rules={{ ...commonFormRules }}
+          rules={{ ...commonFormRules, validate: validateDateOfBirth }}
         />
 
         <Controller

@@ -6,7 +6,6 @@ import PurchasePage from "pages/PurchasePage";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorPage from "pages/ErrorPage";
 import "./index.module.scss";
-import SuccessPage from "pages/SuccessPage";
 
 const App = () => {
   return (
@@ -19,7 +18,6 @@ const App = () => {
             path={`${PAGE_ROUTE.MINIFIG_PURCHASE}/:id`}
             element={<PurchasePage />}
           />
-          <Route path={PAGE_ROUTE.MINIFIG_SUCCESS} element={<SuccessPage />} />
           <Route path="*" element={<Navigate to="/" replace={true} />} />
         </Routes>
       </BrowserRouter>
