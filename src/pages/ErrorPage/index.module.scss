@@ -1,0 +1,11 @@
+.errorPageWrapper {
+  @include content-page-wrapper;
+}
+
+.errorPageTitle {
+  @include content-page-title;
+}
+
+.errorPageSubtitle {
+  margin: 2rem 0;
+}

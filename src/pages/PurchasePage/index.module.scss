@@ -1,0 +1,25 @@
+.purchaseWrapper {
+  @include content-page-wrapper;
+  flex-direction: row;
+  justify-content: center;
+  gap: 12rem;
+  width: 100%;
+
+  @include only-mobile {
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  @include only-tablets {
+    flex-direction: column;
+    gap: 4rem;
+  }
+}
+
+.purchaseTitle {
+  @include content-page-title;
+}
+
+.form {
+  display: flex;
+}

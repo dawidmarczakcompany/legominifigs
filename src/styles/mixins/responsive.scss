@@ -3,3 +3,9 @@
     @content;
   }
 }
+
+@mixin only-tablets {
+  @media (max-width: 960px) {
+    @content;
+  }
+}

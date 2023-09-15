@@ -1,6 +1,17 @@
 @mixin content-page-wrapper {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
-  padding: 4rem;
+  min-height: 100vh;
+  text-align: center;
+  padding: 2rem 4rem;
+}
+
+@mixin content-page-title {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: RobotoBold;
+  font-size: 2.5rem;
+  margin: 0;
 }

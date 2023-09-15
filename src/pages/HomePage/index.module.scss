@@ -3,12 +3,14 @@
 }
 
 .homeTitle {
-  text-transform: uppercase;
-  font-weight: bold;
-  font-family: RobotoBold;
-  font-size: 2.5rem;
+  @include content-page-title;
 }
 
 .homeButton {
   margin-top: 2rem;
+}
+
+.homeImg {
+  width: 26rem;
+  height: 26rem;
 }

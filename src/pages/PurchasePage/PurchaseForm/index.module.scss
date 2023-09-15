@@ -1,0 +1,26 @@
+.purchaseFormWrapper {
+  background-color: rgba($primary-color, 0.5);
+  padding: 2rem;
+  border-radius: 8px;
+  width: 30%;
+
+  @include only-mobile {
+    width: 100%;
+  }
+
+  @include only-tablets {
+    width: 100%;
+  }
+}
+
+.formTitle {
+  @include content-page-title;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

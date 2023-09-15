@@ -1,8 +1,12 @@
 import styles from "./index.module.scss";
 import cn from "classnames";
 
-interface ButtonProps {
-  onClick: (e: React.MouseEvent<HTMLElement>) => void;
+interface ButtonProps
+  extends React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
+  onClick?: (e: React.MouseEvent<HTMLElement>) => void;
   children: React.ReactNode;
   variant?: "primary" | "secondary";
   className?: string;
@@ -15,6 +19,7 @@ const Button = ({
   variant,
   className,
   disabled,
+  ...props
 }: ButtonProps) => {
   return (
     <button
@@ -24,6 +29,7 @@ const Button = ({
         [styles.secondary]: variant === "secondary",
       })}
       onClick={onClick}
+      {...props}
     >
       {children}
     </button>

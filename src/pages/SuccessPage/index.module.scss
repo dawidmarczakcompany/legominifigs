@@ -1,0 +1,13 @@
+.successPageWrapper {
+  @include content-page-wrapper;
+  gap: 2rem;
+}
+
+.successPageTitle {
+  @include content-page-title;
+}
+
+.successPageImg {
+  width: 16rem;
+  height: 16rem;
+}
