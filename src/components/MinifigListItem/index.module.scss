@@ -1,0 +1,34 @@
+.itemWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 1rem;
+  padding: 4rem;
+  flex: 1;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+  max-width: 15rem;
+}
+
+.activeItemWrapper {
+  box-shadow: 0 0 24px 6px $primary-color;
+}
+
+.itemWrapper:hover {
+  transform: scale(1.05);
+}
+
+.itemTitle {
+  color: black;
+  font-family: RobotoBold;
+}
+
+.itemImg {
+  width: 50%;
+}
+
+.detailsButton {
+  margin-top: auto;
+}

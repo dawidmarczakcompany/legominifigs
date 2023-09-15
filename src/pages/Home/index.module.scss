@@ -1,0 +1,14 @@
+.homeWrapper {
+  @include content-page-wrapper;
+}
+
+.homeTitle {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: RobotoBold;
+  font-size: 2.5rem;
+}
+
+.homeButton {
+  margin-top: 2rem;
+}

@@ -1,0 +1,19 @@
+.drawWrapper {
+  @include content-page-wrapper;
+}
+
+.drawTitle {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: RobotoBold;
+  font-size: 2rem;
+}
+
+.drawList {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
