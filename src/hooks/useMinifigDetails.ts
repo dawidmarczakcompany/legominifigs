@@ -9,6 +9,9 @@ const useMinifigDetails = () => {
   const { id } = useParams();
   const [minifig, setMinifig] = useState<Minifig>();
   const [minifigParts, setMinifigParts] = useState<MinifigPart[]>();
+  const [errorFetchingMinifig, setErrorFetchingMinifig] = useState(false);
+  const [errorFetchingMinifigParts, setErrorFetchingMinifigParts] =
+    useState(false);
 
   useEffect(() => {
     if (!id) {
@@ -17,11 +20,10 @@ const useMinifigDetails = () => {
 
     getMinifigDetails(id)
       .then(setMinifig)
-      .catch((e) => {
-        //capt
-        console.error(e);
+      .catch(() => {
+        setErrorFetchingMinifig(true); //Could be improved by e.g. sending error events to Sentry
       });
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     if (!minifig) {
@@ -30,13 +32,17 @@ const useMinifigDetails = () => {
 
     getMinifigParts(minifig.set_num)
       .then(({ results }) => setMinifigParts(results))
-      .catch((e) => {
-        //capt
-        console.error(e);
+      .catch(() => {
+        setErrorFetchingMinifigParts(true);
       });
   }, [minifig]);
 
-  return { minifig, minifigParts };
+  return {
+    minifig,
+    minifigParts,
+    errorFetchingMinifig,
+    errorFetchingMinifigParts,
+  };
 };
 
 export default useMinifigDetails;

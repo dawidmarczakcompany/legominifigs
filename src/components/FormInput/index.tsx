@@ -7,6 +7,7 @@ interface FormInputProps
   > {
   label: string;
   errorMessage?: string;
+  testId?: string;
 }
 
 const FormInput = ({
@@ -14,14 +15,22 @@ const FormInput = ({
   errorMessage,
   required = true,
   type = "text",
+  testId,
   ...props
 }: FormInputProps) => {
   return (
     <div className={styles.formInputWrapper}>
-      <span className={styles.inputLabel}>
+      <label className={styles.inputLabel}>
         {label} {required && <span className={styles.requiredMark}>*</span>}{" "}
-      </span>
-      <input className={styles.input} type={type} {...props} />
+      </label>
+
+      <input
+        data-testid={testId}
+        className={styles.input}
+        type={type}
+        {...props}
+      />
+
       <span className={styles.errorMessage}>{errorMessage}</span>
     </div>
   );

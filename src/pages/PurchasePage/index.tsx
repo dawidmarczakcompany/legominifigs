@@ -7,6 +7,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { submitPurchase } from "actions/purchase";
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { DEFAULT_TOAST_DURATION } from "utils/constants";
 
 const PurchasePage = () => {
   const { id: minifigId } = useParams();
@@ -15,8 +17,6 @@ const PurchasePage = () => {
   const formMethods = useForm<PurchaseFormType>({
     mode: "onChange",
   });
-
-  const { handleSubmit } = formMethods;
 
   const onPurchaseSubmit = async (data: PurchaseFormType) => {
     if (!minifigId) {
@@ -33,19 +33,27 @@ const PurchasePage = () => {
 
     submitPurchase(purchase)
       .then(() => {
+        toast.success(
+          "Success! Your minifig will be now shipped to provided address.",
+          { duration: DEFAULT_TOAST_DURATION },
+        );
         navigate(`/`, { replace: true });
       })
       .catch(() => {
-        console.log("E");
+        toast.error(
+          "There was an issue when submitting your purchase. Please try again.",
+          { duration: DEFAULT_TOAST_DURATION },
+        );
       })
       .finally(() => setIsPurchasing(false));
   };
 
-  console.log(isPurchasing, "isPUR");
-
   return (
     <FormProvider {...formMethods}>
-      <form onSubmit={handleSubmit(onPurchaseSubmit)} className={styles.form}>
+      <form
+        onSubmit={formMethods.handleSubmit(onPurchaseSubmit)}
+        className={styles.form}
+      >
         <div className={styles.purchaseWrapper}>
           <PurchaseForm />
           <PurchaseSummary isPurchasing={isPurchasing} />

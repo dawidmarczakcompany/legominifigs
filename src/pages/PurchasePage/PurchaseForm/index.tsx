@@ -8,7 +8,8 @@ import {
   validateDateOfBirth,
   validateEmail,
   validatePhone,
-} from "utils/form";
+} from "utils/validators";
+import { PAST_DATE_MIN_VALUE } from "utils/constants";
 
 const PurchaseForm = () => {
   const {
@@ -19,7 +20,10 @@ const PurchaseForm = () => {
   const currentDate = new Date().toISOString().split("T")[0];
 
   return (
-    <div className={styles.purchaseFormWrapper}>
+    <div
+      className={styles.purchaseFormWrapper}
+      data-testid="PurchaseForm__Wrapper"
+    >
       <h1 className={styles.formTitle}>Shipping details</h1>
 
       <div className={styles.form}>
@@ -33,6 +37,7 @@ const PurchaseForm = () => {
                 onChange={onChange}
                 errorMessage={errors.name?.message}
                 placeholder="Enter name"
+                testId="PurchaseForm__NameInput"
               />
             )}
             rules={{ ...commonFormRules }}
@@ -47,6 +52,7 @@ const PurchaseForm = () => {
                 onChange={onChange}
                 errorMessage={errors.surname?.message}
                 placeholder="Enter surname"
+                testId="PurchaseForm__SurnameInput"
               />
             )}
             rules={{ ...commonFormRules }}
@@ -58,11 +64,12 @@ const PurchaseForm = () => {
           name="phoneNumber"
           render={({ field: { onChange } }) => (
             <FormInput
-              label="Phone number with country code"
+              label="Phone number"
               onChange={onChange}
               errorMessage={errors.phoneNumber?.message}
               type="tel"
               placeholder="Enter phone number"
+              testId="PurchaseForm__PhoneInput"
             />
           )}
           rules={{ ...commonFormRules, validate: validatePhone }}
@@ -78,6 +85,7 @@ const PurchaseForm = () => {
               errorMessage={errors.email?.message}
               type="email"
               placeholder="Enter e-mail address"
+              testId="PurchaseForm__EmailInput"
             />
           )}
           rules={{ ...commonFormRules, validate: validateEmail }}
@@ -93,6 +101,8 @@ const PurchaseForm = () => {
               errorMessage={errors.dateOfBirth?.message}
               type="date"
               max={currentDate}
+              min={PAST_DATE_MIN_VALUE}
+              testId="PurchaseForm__DateOfBirthInput"
             />
           )}
           rules={{ ...commonFormRules, validate: validateDateOfBirth }}
@@ -107,6 +117,7 @@ const PurchaseForm = () => {
               onChange={onChange}
               errorMessage={errors.address?.message}
               placeholder="Enter address"
+              testId="PurchaseForm__AddressInput"
             />
           )}
           rules={{ ...commonFormRules }}
@@ -121,6 +132,7 @@ const PurchaseForm = () => {
               onChange={onChange}
               errorMessage={errors.city?.message}
               placeholder="Enter city"
+              testId="PurchaseForm__CityInput"
             />
           )}
           rules={{ ...commonFormRules }}
@@ -136,6 +148,7 @@ const PurchaseForm = () => {
                 onChange={onChange}
                 errorMessage={errors.state?.message}
                 placeholder="Enter state"
+                testId="PurchaseForm__StateInput"
               />
             )}
             rules={{ ...commonFormRules }}
@@ -150,6 +163,7 @@ const PurchaseForm = () => {
                 onChange={onChange}
                 errorMessage={errors.zipCode?.message}
                 placeholder="Enter ZIP Code"
+                testId="PurchaseForm__ZipCodeInput"
               />
             )}
             rules={{ ...commonFormRules }}

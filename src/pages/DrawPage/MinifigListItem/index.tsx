@@ -6,12 +6,14 @@ interface MinifigListItemProps {
   minifig: Minifig;
   onClick: (minifig: Minifig) => void;
   active?: boolean;
+  testId?: string;
 }
 
 const MinifigListItem = ({
   minifig,
   onClick,
   active,
+  testId,
 }: MinifigListItemProps) => {
   const onMinifigClick = () => onClick(minifig);
 
@@ -21,6 +23,7 @@ const MinifigListItem = ({
     <div
       className={cn(styles.itemWrapper, { [styles.activeItemWrapper]: active })}
       onClick={onMinifigClick}
+      data-testid={testId}
     >
       <img
         src={minifig.set_img_url}

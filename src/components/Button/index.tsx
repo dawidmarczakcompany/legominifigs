@@ -1,3 +1,4 @@
+import Loader from "components/Loader";
 import styles from "./index.module.scss";
 import cn from "classnames";
 
@@ -11,6 +12,8 @@ interface ButtonProps
   variant?: "primary" | "secondary";
   className?: string;
   disabled?: boolean;
+  testId?: string;
+  loading?: boolean;
 }
 
 const Button = ({
@@ -19,6 +22,8 @@ const Button = ({
   variant,
   className,
   disabled,
+  testId,
+  loading,
   ...props
 }: ButtonProps) => {
   return (
@@ -29,9 +34,14 @@ const Button = ({
         [styles.secondary]: variant === "secondary",
       })}
       onClick={onClick}
+      data-testid={testId}
+      disabled={disabled}
       {...props}
     >
-      {children}
+      <div className={styles.buttonChildren}>
+        {children}
+        {loading && <Loader variant="button" />}
+      </div>
     </button>
   );
 };

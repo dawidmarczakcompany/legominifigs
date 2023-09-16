@@ -3,12 +3,18 @@ import cn from "classnames";
 
 interface LoaderProps {
   className?: string;
+  testId?: string;
+  variant?: "large" | "button";
 }
 
-const Loader = ({ className }: LoaderProps) => {
+const Loader = ({ className, testId, variant }: LoaderProps) => {
   return (
-    <div className={cn(styles.loader, className)}>
-      <div className={styles.circle}></div>
+    <div className={cn(styles.loader, className)} data-testid={testId}>
+      <div
+        className={cn(styles.circle, {
+          [styles.circleButton]: variant === "button",
+        })}
+      ></div>
     </div>
   );
 };

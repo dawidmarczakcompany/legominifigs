@@ -6,12 +6,19 @@
   width: 30%;
 
   @include only-mobile {
-    width: 100%;
+    width: 80%;
   }
 
   @include only-tablets {
-    width: 100%;
+    width: 80%;
   }
+}
+
+.summaryError {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
 .summaryTitle {
@@ -23,12 +30,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 1rem;
-  gap: 1rem;
+  margin: 1rem 0;
 }
 
 .summaryMinifigImg {
-  width: 40%;
+  width: 30%;
   align-self: center;
 }
 

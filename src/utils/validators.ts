@@ -1,8 +1,10 @@
+import { PAST_DATE_MIN_VALUE } from "./constants";
+
 export enum PurchaseFormValidationMessages {
   REQUIRED = "This field is required",
   WRONG_EMAIL = "Please enter correct e-mail address",
-  WRONG_PHONE = "Please enter correct phone number (+48XXXXXXXXX)",
-  WRONG_DATE = "Please enter correct date of birth in the past",
+  WRONG_PHONE = "Please enter correct 9-digits phone number",
+  WRONG_DATE = "Please enter correct date of birth",
 }
 
 export const validateEmail = (email: string) => {
@@ -16,9 +18,8 @@ export const validateEmail = (email: string) => {
 };
 
 export const validatePhone = (phoneNumber: string) => {
-  //Basic validation for Polish numbers +{48}{number}
-
-  const phoneRegex = /^\+48\d{9}$/;
+  //Basic validation for phone number - min 9 digits
+  const phoneRegex = /^\d{9}$/;
 
   if (!phoneRegex.test(phoneNumber)) {
     return PurchaseFormValidationMessages.WRONG_PHONE;
@@ -29,8 +30,9 @@ export const validateDateOfBirth = (date: string) => {
   //Basic validation for date in the past besides blocking it in picker
   const currentDate = new Date().getTime();
   const selectedDate = Date.parse(date);
+  const pastDate = Date.parse(PAST_DATE_MIN_VALUE);
 
-  if (selectedDate >= currentDate) {
+  if (selectedDate >= currentDate || selectedDate <= pastDate) {
     return PurchaseFormValidationMessages.WRONG_DATE;
   }
 };

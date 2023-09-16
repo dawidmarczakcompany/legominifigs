@@ -2,14 +2,14 @@
   background-color: rgba($primary-color, 0.5);
   padding: 2rem;
   border-radius: 8px;
-  width: 30%;
+  width: 45%;
 
   @include only-mobile {
-    width: 100%;
+    width: 80%;
   }
 
   @include only-tablets {
-    width: 100%;
+    width: 80%;
   }
 }
 

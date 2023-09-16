@@ -1,17 +1,19 @@
 import useDrawMinifigs from "hooks/useDrawMinifigs";
 import styles from "./index.module.scss";
 import { useMemo, useState } from "react";
-import { MINIFIGS_LIST_COUNT } from "utils/contants";
-import MinifigListItem from "pages/DrawPage/MinifigListItem";
+import { MINIFIGS_LIST_COUNT } from "utils/constants";
 import Button from "components/Button";
 import { Minifig } from "types/minifigs";
 import { useNavigate } from "react-router-dom";
 import { PAGE_ROUTE } from "utils/navigation";
 import Loader from "components/Loader";
+import ErrorPage from "pages/ErrorPage";
+import { ErrorReasonCodes } from "types/errors";
+import MinifigListItem from "./MinifigListItem";
 
 const DrawPage = () => {
   const [selectedMinifig, setSelectedMinifig] = useState<Minifig>();
-  const { minifigs } = useDrawMinifigs();
+  const { minifigs, errorFetchingMinifigs } = useDrawMinifigs();
   const navigate = useNavigate();
 
   const onProceedClick = () => {
@@ -30,12 +32,21 @@ const DrawPage = () => {
     [minifigs],
   );
 
-  if (!minifigs?.length) {
-    return <Loader className={styles.loader} />;
+  if (errorFetchingMinifigs || minifigs?.length === 0) {
+    return (
+      <ErrorPage
+        reasonCode={ErrorReasonCodes.MINIFIGS_FETCHING}
+        testId="DrawPage__ErrorPage"
+      />
+    );
+  }
+
+  if (!minifigs) {
+    return <Loader className={styles.loader} testId="DrawPage__Loader" />;
   }
 
   return (
-    <div className={styles.drawWrapper}>
+    <div className={styles.drawWrapper} data-testid="DrawPage__Wrapper">
       <h1 className={styles.drawTitle}>Choose you minifig</h1>
 
       <div className={styles.drawList}>
@@ -45,6 +56,7 @@ const DrawPage = () => {
             minifig={minifig}
             onClick={setSelectedMinifig}
             active={minifig.set_num === selectedMinifig?.set_num}
+            testId={`DrawPage__MinifigItem__${minifig.set_num}`}
           />
         ))}
       </div>
@@ -53,6 +65,7 @@ const DrawPage = () => {
         disabled={!selectedMinifig}
         onClick={onProceedClick}
         variant="primary"
+        testId="DrawPage__ProceedButton"
       >
         Proceed to shipment
       </Button>

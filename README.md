@@ -8,7 +8,7 @@ Lego Minifig is a web application that allows you to explore and interact with a
 
 ## Usage
 
-Once you have installed the project dependencies, you can start the application locally:
+Once you have cloned the project repository, you can start the application locally:
 
 ```
 yarn install

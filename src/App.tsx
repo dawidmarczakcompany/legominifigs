@@ -5,7 +5,7 @@ import DrawPage from "pages/DrawPage";
 import PurchasePage from "pages/PurchasePage";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorPage from "pages/ErrorPage";
-import "./index.module.scss";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
@@ -20,6 +20,7 @@ const App = () => {
           />
           <Route path="*" element={<Navigate to="/" replace={true} />} />
         </Routes>
+        <Toaster />
       </BrowserRouter>
     </ErrorBoundary>
   );

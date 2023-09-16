@@ -4,10 +4,23 @@ import Loader from "components/Loader";
 
 interface PurchaseSummaryListProps {
   minifigParts?: MinifigPart[];
+  errorFetchingMinifigParts?: boolean;
 }
 
-const PurchaseSummaryList = ({ minifigParts }: PurchaseSummaryListProps) => {
-  if (!minifigParts?.length) {
+const PurchaseSummaryList = ({
+  minifigParts,
+  errorFetchingMinifigParts,
+}: PurchaseSummaryListProps) => {
+  if (errorFetchingMinifigParts) {
+    return (
+      <span className={styles.errorMessage}>
+        Unfortunately we couldn't fetch parts included in selected minifig. You
+        can continue your purchase anyway.
+      </span>
+    );
+  }
+
+  if (!minifigParts) {
     return <Loader />;
   }
 
@@ -23,7 +36,7 @@ const PurchaseSummaryList = ({ minifigParts }: PurchaseSummaryListProps) => {
           />
 
           <div className={styles.partItemDetails}>
-            <span>{part.name}</span>
+            <span className={styles.partItemName}>{part.name}</span>
             <span className={styles.partItemId}>{id}</span>
           </div>
         </div>

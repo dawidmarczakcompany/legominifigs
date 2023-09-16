@@ -6,10 +6,10 @@ import legoImg from "assets/images/mystery-box.png";
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const onStartButtonClick = () => navigate(PAGE_ROUTE.MINIFIG_SELECTION);
+  const onStartButtonClick = () => navigate(`/${PAGE_ROUTE.MINIFIG_SELECTION}`);
 
   return (
-    <div className={styles.homeWrapper}>
+    <div className={styles.homeWrapper} data-testid="HomePage__Wrapper">
       <img src={legoImg} alt="" className={styles.homeImg} />
 
       <h1 className={styles.homeTitle}>Lego Minifigs Mystery Box</h1>
@@ -18,6 +18,7 @@ const HomePage = () => {
         className={styles.homeButton}
         onClick={onStartButtonClick}
         variant="primary"
+        testId="HomePage__StartButton"
       >
         Let's go!
       </Button>
